@@ -91,12 +91,18 @@ def main():
     print("\nКількість співробітників за віком і статтю:")
     print(crosstab)
 
-    # Plot grouped bar chart
-    plt.figure()
-    crosstab.loc[["younger_18", "18-45", "45-70", "older_70"]].plot(kind="bar")
-    plt.title("Кількість співробітників за віком і статтю")
-    plt.xlabel("Вікова категорія")
-    plt.ylabel("Кількість")
+    # build grouped bar chart: one figure, one axis
+    fig, ax = plt.subplots()  # create single figure window
+
+    crosstab.loc[["younger_18", "18-45", "45-70", "older_70"]].plot(
+        kind="bar",
+        ax=ax  # draw on this axis, not creating new figure
+    )
+
+    ax.set_title("Кількість співробітників за віком і статтю")
+    ax.set_xlabel("Вікова категорія")
+    ax.set_ylabel("Кількість")
+
     plt.tight_layout()
     plt.show()
 
